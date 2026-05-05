@@ -1,11 +1,106 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Inventario de Alimentos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-   <script src="main.js"></script> 
+<body class="bg-light">
+
+<div class="container py-4">
+  <h2 class="text-center mb-4">🥗 Inventario de Alimentos</h2>
+
+  <!-- FORMULARIO -->
+  <div class="card mb-4">
+    <div class="card-header">Agregar / Modificar Producto</div>
+    <div class="card-body">
+      <form id="productForm">
+        <div class="row g-3">
+
+          <div class="col-md-4">
+            <input type="text" id="nombre" class="form-control" placeholder="Nombre" required>
+          </div>
+
+          <div class="col-md-4">
+            <input type="text" id="categoria" class="form-control" placeholder="Categoría" required>
+          </div>
+
+          <div class="col-md-4">
+            <input type="text" id="marca" class="form-control" placeholder="Marca" required>
+          </div>
+
+          <div class="col-md-3">
+            <input type="number" id="precio" class="form-control" placeholder="Precio" required>
+          </div>
+
+          <div class="col-md-3">
+            <input type="number" id="cantidad" class="form-control" placeholder="Cantidad" required>
+          </div>
+
+          <div class="col-md-6">
+            <button class="btn btn-success w-100">Guardar Producto</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- BUSCADOR Y FILTRO -->
+  <div class="card mb-4">
+    <div class="card-header">Buscar / Filtrar</div>
+    <div class="card-body">
+      <div class="row g-3">
+
+        <div class="col-md-4">
+          <input type="text" id="buscarNombre" class="form-control" placeholder="Buscar por nombre">
+        </div>
+
+        <div class="col-md-3">
+          <input type="number" id="precioMin" class="form-control" placeholder="Precio mínimo">
+        </div>
+
+        <div class="col-md-3">
+          <input type="number" id="precioMax" class="form-control" placeholder="Precio máximo">
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-primary w-100" onclick="filtrar()">Filtrar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA -->
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <span>📋 Inventario</span>
+      <button class="btn btn-secondary btn-sm" onclick="reporte()">Generar Reporte</button>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-bordered table-hover text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody id="tablaProductos">
+          
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<script src="main.js"></script>
 </body>
 </html>

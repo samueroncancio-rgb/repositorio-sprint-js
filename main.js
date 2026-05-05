@@ -1,52 +1,70 @@
-let inventario = [];
-let opcion = 0;
+let productos=[]
 
-while (opcion !== 7) {
-  console.log("1. Agregar producto");
-  console.log("2. Eliminar producto");
-  console.log("3. Modificar producto");
-  console.log("4. Buscar producto");
-  console.log("5. Filtrar por precio");
-  console.log("6. Mostrar inventario");
-  console.log("7. Salir");
 
-  opcion = parseInt(prompt("Elige una opción:"));
 
-  switch (opcion) {
-    case 1:
-      // agregar producto
-      let nombre = prompt("Nombre:");
-      let categoria = prompt("Categoría:");
-      let precio = parseFloat(prompt("Precio:"));
-      let cantidad = parseInt(prompt("Cantidad:"));
-      let marca = prompt("Marca:");
-
-      let producto = {
-        nombre,
-        categoria,
-        precio,
-        cantidad,
-        marca
-      };
-      inventario.push(producto);
-
-      console.log("Producto agregado correctamente");
-    break;
-    case 6:
-    if (inventario.length === 0) {
-    console.log("El inventario está vacío");
-    } 
-    else {
-    for (let i = 0; i < inventario.length; i++) {
-      console.log(i, inventario[i]);
-    }
-    }
-    break;
+const mostrarProducto=(lista)=>{
+  const table=document.getElementById("tablaProductos")
+  table.innerHTML=""
+  lista.forEach((elemento,posicion)=>{
+    table.innerHTML += `
+     <tr>
+            <td>${posicion}</td>
+            <td>${elemento.nombre}</td>
+            <td>${elemento.categoria}</td>
+            <td>${elemento.marca}</td>
+            <td>${elemento.precio}</td>
+            <td>${elemento.precio}</td>
+            <td>
+            <button class="btn btn-warning btn-sm">Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${posicion})">Eliminar</button>
+            </td>
+          </tr>
     
-
-    case 2:
-      // eliminar
-      
+    `
+    
+  })
+}
+const eliminarProducto=(posicion)=>{
+  if(confirm("estas seguro que quieres eliminar el producto?")){
+    productos.splice(posicion,1)
+    mostrarProducto(productos)
   }
 
 }
+const inputFiltrar=document.getElementById("buscarNombre")
+
+
+const filtrarNombre=()=>{
+  const textValor=inputFiltrar.value.toLowerCase()
+  const nombreFiltrados=productos.filter(elemento=> elemento.nombre.toLowerCase().includes(textValor))
+  if (textValor===""){
+    mostrarProducto(productos)
+  }else{
+    mostrarProducto(nombreFiltrados)
+  }
+
+}
+
+
+const agregarProducto=()=>{
+  const articulo={
+    nombre:document.getElementById("nombre").value,
+    categoria:document.getElementById("categoria").value,
+    marca:document.getElementById("marca").value,
+    precio:parseFloat(document.getElementById("precio").value),
+    cantidad:parseInt(document.getElementById("cantidad").value),
+  }
+  productos.push(articulo)
+  mostrarProducto(productos)
+  
+
+}
+const formulario= document.getElementById("productForm")
+
+formulario.addEventListener("submit",(e)=>{
+  e.preventDefault();
+  agregarProducto()
+  formulario.reset()
+})
+
+inputFiltrar.addEventListener("input",filtrarNombre)
